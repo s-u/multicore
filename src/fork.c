@@ -192,6 +192,10 @@ SEXP mc_fork() {
 		close(pipefd[0]); close(pipefd[1]);
 		error("Unable to create a pipe.");
 	}
+#ifdef MC_DEBUG
+	Dprintf("parent[%d] created pipes: comm (%d->%d), sir (%d->%d)\n", getpid(),
+		pipefd[1], pipefd[0], sipfd[1], sipfd[0]);
+#endif
 #ifdef WIN32
 	{
 		SECURITY_ATTRIBUTES sa = { sizeof(SECURITY_ATTRIBUTES), NULL, TRUE };
